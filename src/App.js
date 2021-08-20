@@ -1,15 +1,25 @@
 import React, { useState } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Link } from "react-router-dom";
+import { PizzaForm } from "./components/PizzaForm";
+import { PizzaOrders } from "./components/PizzaOrders";
 
 const App = () => {
   const [pizzaData, setPizzaData] = useState([]);
 
+  // useEffect(() => {
+
+  // }, [])
+
   return (
     <>
-      <h1>Lambda Eats</h1>
+      <nav>
+        <h1>Lambda Eats</h1>
+        <Link to="/">Home</Link>
+        <Link to="/pizza">Order Pizza?</Link>
+      </nav>
       <Switch>
-        <Route path="/pizza/form" />
-        <Route path="/pizza" />
+        <Route path="/pizza/:order" component={PizzaOrders} />
+        <Route path="/pizza" component={PizzaForm} />
         <Route path="/" />
       </Switch>
     </>

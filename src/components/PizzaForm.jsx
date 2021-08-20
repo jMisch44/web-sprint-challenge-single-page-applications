@@ -1,4 +1,6 @@
-import React from "react";
+import { validate } from "@babel/types";
+import React, { useState } from "react";
+import { Link, useRouteMatch } from "react-router-dom";
 
 const initialFormValue = {
   name: "",
@@ -10,10 +12,25 @@ const initialFormValue = {
   special: "",
 };
 
-export const PizzaForm = () => {
+// const validate = (name, value) => {
+//     yup
+// }
+
+export const PizzaForm = (props) => {
+  const [formValues, setFormValues] = useState(initialFormValue);
+
+  // const handleChange = (event) => {
+  //     const { name, value, checked, type } = event.target;
+  //     const valueToUse = type === "checkbox" ? checked : value;
+  //     validate (name, valueToUse);
+  //     setFormValues({ ...formValues, [name]: value});
+  // }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
   return (
     <div>
-      <form id="pizza-form">
+      <form id="pizza-form" onSubmit={handleSubmit}>
         <label>
           Name
           <input id="name-input" type="text" />
