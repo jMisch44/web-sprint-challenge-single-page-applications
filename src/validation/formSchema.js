@@ -8,7 +8,8 @@ const formSchema = yup.object().shape({
     .min(2, "name must be at least 2 characters"),
   size: yup
     .string()
-    .oneOf(["small", "medium", "large", "XL"], "size is required"),
+    .oneOf(["small", "medium", "large", "XL"], "size is required")
+    .required(),
   cheese: yup.boolean(),
   pepperoni: yup.boolean(),
   onion: yup.boolean(),

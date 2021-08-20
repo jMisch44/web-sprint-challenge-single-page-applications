@@ -1,4 +1,23 @@
 #pizza-form{
     margin: auto;
-    
+    padding: 1%;
+}
+label {
+    margin: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+}
+input {
+    background-color: white;
+    padding: auto;
+}
+
+#order-button {
+    padding: 1%;
+}
+.error{
+    color: orangered;
+    margin-top: 5px;
 }

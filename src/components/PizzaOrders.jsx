@@ -1,5 +1,4 @@
 import React from "react";
-
 export const PizzaOrders = (props) => {
   const { pizzaData } = props;
   return (

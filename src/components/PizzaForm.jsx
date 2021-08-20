@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useRouteMatch, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import schema from "../validation/formSchema";
+import "./PizzaForm.css";
 
 const initialFormValue = {
   name: "",
@@ -74,9 +75,10 @@ export const PizzaForm = (props) => {
   };
   return (
     <div>
+      <h1>Build Your Own Pizza</h1>
       <form id="pizza-form" onSubmit={handleSubmit}>
         <label>
-          Name
+          Name*
           <input
             id="name-input"
             type="text"
@@ -86,7 +88,7 @@ export const PizzaForm = (props) => {
           />
         </label>
         <label>
-          Size
+          Size*
           <select
             id="size-dropdown"
             name="size"
@@ -100,7 +102,7 @@ export const PizzaForm = (props) => {
           </select>
         </label>
         <label>
-          Toppings
+          Toppings:
           <label>
             Cheese
             <input
@@ -152,8 +154,9 @@ export const PizzaForm = (props) => {
         <button id="order-button" disabled={disabled}>
           Place Order
         </button>
-        <div>{formErrors.name}</div>
-        <div>{formErrors.size}</div>
+        <p>* is a required field</p>
+        <div className="error">{formErrors.name}</div>
+        <div className="error">{formErrors.size}</div>
       </form>
     </div>
   );
