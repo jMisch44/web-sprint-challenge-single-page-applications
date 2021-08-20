@@ -5,7 +5,7 @@ import schema from "../validation/formSchema";
 
 const initialFormValue = {
   name: "",
-  size: "",
+  size: "small",
   cheese: false,
   pepperoni: false,
   onion: false,

@@ -15,7 +15,9 @@ const App = () => {
       <nav>
         <h1>Lambda Eats</h1>
         <Link to="/">Home</Link>
-        <Link to="/pizza">Order Pizza?</Link>
+        <Link to="/pizza" id="order-pizza" data-cy="order-pizza">
+          Order Pizza?
+        </Link>
       </nav>
       <Switch>
         <Route path="/pizza/:order">
