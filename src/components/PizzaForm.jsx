@@ -53,9 +53,10 @@ export const PizzaForm = (props) => {
 
   const handleChange = (event) => {
     const { name, value, checked, type } = event.target;
+    console.log(checked);
     const valueToUse = type === "checkbox" ? checked : value;
     validate(name, valueToUse);
-    setFormValues({ ...formValues, [name]: value });
+    setFormValues({ ...formValues, [name]: valueToUse });
   };
 
   const handleSubmit = (event) => {
@@ -63,9 +64,10 @@ export const PizzaForm = (props) => {
     const newPizza = {
       name: formValues.name,
       size: formValues.size,
-      toppings: ["cheese", "pepperoni", "onion", "sausage"].filter(
-        (topping) => !!formValues[topping]
-      ),
+      cheese: formValues.cheese,
+      pepperoni: formValues.pepperoni,
+      onion: formValues.onion,
+      sausage: formValues.sausage,
       special: formValues.special,
     };
     postNewPizza(newPizza);
