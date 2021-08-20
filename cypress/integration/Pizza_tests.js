@@ -3,8 +3,6 @@ describe("Pizza App", () => {
     cy.visit("http://localhost:3000/");
   });
 
-  // - [ ] test that you can select multiple toppings
-  // - [ ] test that you can submit the form
   const orderPizzaLink = () => cy.get("[data-cy=order-pizza]");
   const nameInput = () => cy.get("input[id='name-input']");
   const cheeseCheck = () => cy.get("input[name='cheese']");

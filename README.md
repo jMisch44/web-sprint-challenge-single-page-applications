@@ -34,7 +34,7 @@ Demonstrate your understanding of this week's concepts by answering the followin
 
 1. In 1-2 sentences, explain what React's `useRouteMatch` hook is used for.
 
-    useRouteMatch is used to add nested routes to an application, so that you can change a single parameter in the URL without having to manually change the route where you have used it. 
+    useRouteMatch is used to add nested routes to an application. This allows you to change a single parameter in the URL without having to manually change the route where you have used it. 
 
 1. How would you explain form validation to someone who has never programmed before?
 

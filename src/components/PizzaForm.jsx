@@ -53,7 +53,6 @@ export const PizzaForm = (props) => {
 
   const handleChange = (event) => {
     const { name, value, checked, type } = event.target;
-    console.log(checked);
     const valueToUse = type === "checkbox" ? checked : value;
     validate(name, valueToUse);
     setFormValues({ ...formValues, [name]: valueToUse });

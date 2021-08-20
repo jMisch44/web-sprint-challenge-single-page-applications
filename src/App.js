@@ -7,14 +7,16 @@ const App = () => {
   const [pizzaData, setPizzaData] = useState([]);
 
   return (
-    <>
-      <nav>
+    <div className="App">
+      <header className="app-header">
         <h1>Lambda Eats</h1>
-        <Link to="/">Home</Link>
-        <Link to="/pizza" id="order-pizza" data-cy="order-pizza">
-          Order Pizza?
-        </Link>
-      </nav>
+        <nav>
+          <Link to="/">Home</Link>
+          <Link to="/pizza" id="order-pizza" data-cy="order-pizza">
+            Pizza?
+          </Link>
+        </nav>
+      </header>
       <Switch>
         <Route path="/pizza/:order">
           <PizzaOrders pizzaData={pizzaData} />
@@ -24,7 +26,7 @@ const App = () => {
         </Route>
         <Route path="/" />
       </Switch>
-    </>
+    </div>
   );
 };
 export default App;
