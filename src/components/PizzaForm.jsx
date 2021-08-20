@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useRouteMatch, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import schema from "../validation/formSchema";
 
@@ -16,28 +16,42 @@ const initialFormValue = {
 const initialFormErrors = {
   name: "",
   size: "",
-  special: "",
-};
-
-const validate = (name, value) => {
-  yup
-    .reach(schema, name)
-    .validate(value)
-    .then(() => setFormErrors({ ...formErrors, [name]: "" }))
-    .catch((err) => setFormErrors({ ...formErrors, [name]: err.errors[0] }));
 };
 
 export const PizzaForm = (props) => {
+  const { setPizzaData } = props;
+  const { url } = useRouteMatch();
+  const history = useHistory();
   const [formValues, setFormValues] = useState(initialFormValue);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
-  // const handleChange = (event) => {
-  //     const { name, value, checked, type } = event.target;
-  //     const valueToUse = type === "checkbox" ? checked : value;
-  //     validate (name, valueToUse);
-  //     setFormValues({ ...formValues, [name]: value});
-  // }
+
+  const validate = (name, value) => {
+    yup
+      .reach(schema, name)
+      .validate(value)
+      .then(() => setFormErrors({ ...formErrors, [name]: "" }))
+      .catch((err) => setFormErrors({ ...formErrors, [name]: err.errors[0] }));
+  };
+
+  const handleChange = (event) => {
+    const { name, value, checked, type } = event.target;
+    const valueToUse = type === "checkbox" ? checked : value;
+    validate(name, valueToUse);
+    setFormValues({ ...formValues, [name]: value });
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    const newPizza = {
+      name: formValues.name,
+      size: formValues.size,
+      toppings: ["cheese", "pepperoni", "onion", "sausage"].filter(
+        (topping) => !!formValues[topping]
+      ),
+      special: formValues.special,
+    };
+    setPizzaData(newPizza);
+    history.push(`${url}/${formValues.name}`);
   };
   return (
     <div>
@@ -48,7 +62,7 @@ export const PizzaForm = (props) => {
             id="name-input"
             type="text"
             name="name"
-            value={values.name}
+            value={formValues.name}
             onChange={handleChange}
           />
         </label>
@@ -57,7 +71,7 @@ export const PizzaForm = (props) => {
           <select
             id="size-dropdown"
             name="size"
-            value={values.size}
+            value={formValues.size}
             onChange={handleChange}
           >
             <option value="small">Small</option>
@@ -73,7 +87,7 @@ export const PizzaForm = (props) => {
             <input
               type="checkbox"
               name="cheese"
-              checked={values.cheese}
+              checked={formValues.cheese}
               onChange={handleChange}
             />
           </label>
@@ -82,7 +96,7 @@ export const PizzaForm = (props) => {
             <input
               type="checkbox"
               name="pepperoni"
-              checked={values.pepperoni}
+              checked={formValues.pepperoni}
               onChange={handleChange}
             />
           </label>
@@ -91,7 +105,7 @@ export const PizzaForm = (props) => {
             <input
               type="checkbox"
               name="onion"
-              checked={values.onion}
+              checked={formValues.onion}
               onChange={handleChange}
             />
           </label>
@@ -100,7 +114,7 @@ export const PizzaForm = (props) => {
             <input
               type="checkbox"
               name="sausage"
-              checked={values.sausage}
+              checked={formValues.sausage}
               onChange={handleChange}
             />
           </label>
@@ -111,12 +125,14 @@ export const PizzaForm = (props) => {
             id="special-text"
             type="text"
             name="special"
-            value={values.special}
+            value={formValues.special}
             onChange={handleChange}
           />
         </label>
 
         <button id="order-button">Place Order</button>
+        <div>{formErrors.name}</div>
+        <div>{formErrors.size}</div>
       </form>
     </div>
   );

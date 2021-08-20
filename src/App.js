@@ -8,7 +8,7 @@ const App = () => {
 
   // useEffect(() => {
 
-  // }, [])
+  // }, [pizzaData])
 
   return (
     <>
@@ -18,8 +18,12 @@ const App = () => {
         <Link to="/pizza">Order Pizza?</Link>
       </nav>
       <Switch>
-        <Route path="/pizza/:order" component={PizzaOrders} />
-        <Route path="/pizza" component={PizzaForm} />
+        <Route path="/pizza/:order">
+          <PizzaOrders pizzaData={pizzaData} />
+        </Route>
+        <Route path="/pizza">
+          <PizzaForm setPizzaData={setPizzaData} />
+        </Route>
         <Route path="/" />
       </Switch>
     </>
