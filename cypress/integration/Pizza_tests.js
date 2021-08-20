@@ -1,5 +1,3 @@
-import { PizzaOrders } from "../../src/components/PizzaOrders";
-
 describe("Pizza App", () => {
   beforeEach(() => {
     cy.visit("http://localhost:3000/");

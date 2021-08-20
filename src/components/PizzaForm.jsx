@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { Link, useRouteMatch, useHistory } from "react-router-dom";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { useRouteMatch, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import schema from "../validation/formSchema";
 
@@ -18,12 +19,25 @@ const initialFormErrors = {
   size: "",
 };
 
+const initialDisabled = false;
+
 export const PizzaForm = (props) => {
-  const { setPizzaData } = props;
+  const { setPizzaData, pizzaData } = props;
   const { url } = useRouteMatch();
   const history = useHistory();
   const [formValues, setFormValues] = useState(initialFormValue);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
+  const [disabled, setDisabled] = useState(initialDisabled);
+
+  const postNewPizza = (newPizza) => {
+    axios
+      .post(`https://reqres.in/api/orders`, newPizza)
+      .then((res) => {
+        setPizzaData([...pizzaData, res.data]);
+      })
+      .catch((err) => console.error(err));
+    setFormValues(initialFormValue);
+  };
 
   const validate = (name, value) => {
     yup
@@ -32,6 +46,10 @@ export const PizzaForm = (props) => {
       .then(() => setFormErrors({ ...formErrors, [name]: "" }))
       .catch((err) => setFormErrors({ ...formErrors, [name]: err.errors[0] }));
   };
+
+  useEffect(() => {
+    schema.isValid(formValues).then((valid) => setDisabled(!valid));
+  }, [formValues]);
 
   const handleChange = (event) => {
     const { name, value, checked, type } = event.target;
@@ -50,7 +68,7 @@ export const PizzaForm = (props) => {
       ),
       special: formValues.special,
     };
-    setPizzaData(newPizza);
+    postNewPizza(newPizza);
     history.push(`${url}/${formValues.name}`);
   };
   return (
@@ -130,7 +148,9 @@ export const PizzaForm = (props) => {
           />
         </label>
 
-        <button id="order-button">Place Order</button>
+        <button id="order-button" disabled={disabled}>
+          Place Order
+        </button>
         <div>{formErrors.name}</div>
         <div>{formErrors.size}</div>
       </form>

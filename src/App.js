@@ -6,10 +6,6 @@ import { PizzaOrders } from "./components/PizzaOrders";
 const App = () => {
   const [pizzaData, setPizzaData] = useState([]);
 
-  // useEffect(() => {
-
-  // }, [pizzaData])
-
   return (
     <>
       <nav>
@@ -24,7 +20,7 @@ const App = () => {
           <PizzaOrders pizzaData={pizzaData} />
         </Route>
         <Route path="/pizza">
-          <PizzaForm setPizzaData={setPizzaData} />
+          <PizzaForm setPizzaData={setPizzaData} pizzaData={pizzaData} />
         </Route>
         <Route path="/" />
       </Switch>
